@@ -19,23 +19,18 @@ def run(points: str) -> str:
         if TIE_BREAK_CONDITION:
             if points_a >= 7 and points_a - points_b >= 2:
                 a_games += 1
-                result += '7-6 '
+                result += f'{points_a} - {points_b} '
                 a_sets = 0
                 b_sets = 0
                 points_a = 0
                 points_b = 0
-                continue
             if points_b >= 7 and points_b - points_a >= 2:
                 b_games += 1
-                result += '6-7 '
+                result += f'{points_a} - {points_b} '
                 a_sets = 0
                 b_sets = 0
                 points_a = 0
                 points_b = 0
-                continue
-            TIE_BREAK_CONDITION = False
-            # Si dejamos el TIE_BREAK_CONDITION con la condición definida, esta 
-            # linea no haría falta
         # COMPROBACIÓN DE SET PARA A
         if points_a >= 4 and points_a - points_b >= 2:
             a_sets += 1
@@ -63,11 +58,6 @@ def run(points: str) -> str:
             a_sets = 0
             points_a = 0
             points_b = 0
-        # Para que cuando sea 6-6, en la siguiente iteranción
-        # Hace que entre por lo de los tie breaks.
-        if a_sets == 6 and b_sets == 6:
-            TIE_BREAK_CONDITION = True
-        # Esta línea tampoco haría falta
         # COMPROBACIÓN DE PARTIDO
         if a_games == 2 or b_games == 2:
             break
