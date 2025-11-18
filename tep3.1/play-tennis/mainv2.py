@@ -5,33 +5,43 @@ def run(points: str) -> str:
     b_games = 0
     a_sets = 0
     b_sets = 0
-    tiebreak_condition = False
+    tiebreak = False
     result = ''
     for point in points:
+        # COMPROBACIÓN DE EMPATE
         if a_games == 6 and b_games == 6:
             tiebreak = True
         if point == 'A':
-            points_a += 1
+            a_points += 1
         else:
-            points_b += 1
-        # COMPROBACIÓN DE EMPATE
-        # COMPROBACIÓN DE SET PARA A
+            b_points += 1
+        # COMPROBACIÓN DE JUEGOS PARA A
         if a_points >= 4 and a_points - b_points >= 2:
             a_games += 1
             a_points = 0
             b_points = 0
-        # COMPROBACIÓN DE SET PARA B
+        # COMPROBACIÓN DE JUEGOS PARA B
         elif b_points >= 4 and b_points - a_points >= 2:
             b_games += 1
             a_points = 0
             b_points = 0
-        # COMPROBACIÓN DE JUEGO PARA A
+        # RESOLUCIÓN TIEBREAK
+        if tiebreak:
+            if a_points >= 7 and a_points - b_points >= 2:
+                a_games += 1
+                a_points = 0
+                b_points = 0
+            elif b_points >= 7 and b_points - a_points >= 2:
+                b_games += 1
+                a_points = 0
+                b_points = 0
+        # COMPROBACIÓN DE SETS PARA A
         if a_games >= 6 and a_games - b_games >= 2:
             a_sets += 1
             result += f'{a_games}-{b_games} '
             a_games = 0
             b_games = 0
-        # COMPROBACIÓN DE JUEGO PARA B
+        # COMPROBACIÓN DE SETS PARA B
         elif b_games >= 6 and b_games - a_games >= 2:
             b_sets += 1
             result += f'{a_games}-{b_games} '
